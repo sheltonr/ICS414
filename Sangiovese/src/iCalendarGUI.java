@@ -24,7 +24,7 @@ import org.jdesktop.swingx.JXDatePicker;
 /**
  * iCalendarGUI for Team Cocoa's ICS 314 Project.
  * 
- * Functions
+ * FFunctions
  * -iCalendarGUI()						|	iCalendarGUI constructor.
  * -initialize()						|	Initializes the fields of the GUI.
  * -focusGained(FocusEvent event)		|	Performs actions when focus is gained.
