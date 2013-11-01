@@ -23,12 +23,6 @@ public class ICSFormat{
 	private ICSFormat(){
 	}
 
-	public static void main(String[] args){
-		String smaller = (valid("1/1/11","21:00"));
-		String bigger = (valid("1/1/11","21:00:01"));
-		System.out.println(compare(smaller,bigger));
-	}
-
 	/**
 	 * Checks that text has no dangerous characters
 	 * @param value - String of text
@@ -102,10 +96,7 @@ public class ICSFormat{
 	 * @param source - Current string for RRule
 	 * @return value - source + attributes and syntax
 	 */
-	public static String addRRule(String property,String value,String source){
-		if(1==1){		//some sort of error check
-			return source+property+"="+value+";";
-		}
-		return source;
+	public static String addRRule(String property, String value, String source){
+			return source + property + "=" + value + ";";
 	}
 }

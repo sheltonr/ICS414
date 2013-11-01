@@ -99,6 +99,7 @@ public class FileMaker {
 	 * Generates the content of the .ics file to be written.
 	 * @return String of the content.
 	 */
+	@SuppressWarnings("rawtypes")
 	public String generate_content() {
 		String content = "";
 		String tags_calendar_header = "BEGIN:VCALENDAR\r\n";
@@ -116,7 +117,7 @@ public class FileMaker {
 		}
 
 		content += (tags_event_header);
-
+		
 		Set eventSet = event_attributes.entrySet();
 		i = eventSet.iterator();
 		
@@ -136,16 +137,12 @@ public class FileMaker {
 	 *		   false on failure.
 	 */
 	public boolean generate(String fileName) {
-		Writer writer = null;
-
 		try {
-			writer = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(new File(fileName + ".ics"))));
+			Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(new File(fileName + ".ics"))));
 			writer.write(generate_content());
 			writer.close();
 			return true;
 		} catch (IOException ex) {
-			// report
 			System.out.print(ex + "fail");
 			return false;
 		}

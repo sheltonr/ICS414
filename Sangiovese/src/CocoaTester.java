@@ -1,4 +1,5 @@
 import java.io.File;
+import org.junit.Assert;
 
 /**
  * Tester class for Team Cocoa's .ics file generator.
@@ -14,27 +15,30 @@ public class CocoaTester {
 		File file = new File (System.getProperty("user.dir") + "\\" + fileName + ".ics");
 		
 		//delete file if it exists
-		if(file.exists()) {
-			org.junit.Assert.assertTrue(file.delete());
+		if (file.exists()) {
+			Assert.assertTrue(file.delete());
 		}
 		
-		FileMaker test = new FileMaker();
-		test.set_attribute("VERSION","1.0","calendar");
-		test.set_attribute("CALSCALE","GREGORIAN","calendar");
-		test.set_attribute("SUMMARY","Exam Study");
-		test.set_attribute("DESCRIPTION","study for exam information and details");
-		test.set_attribute("LOCATION","Hamilton Library");
+		FileMaker fm = new FileMaker();
+		fm.set_attribute("VERSION","1.0","calendar");
+		fm.set_attribute("CALSCALE","GREGORIAN","calendar");
+		fm.set_attribute("SUMMARY","Exam Study");
+		fm.set_attribute("DESCRIPTION","study for exam information and details");
+		fm.set_attribute("LOCATION","Hamilton Library");
 		
 		//file generated
-		org.junit.Assert.assertTrue(test.generate(fileName));
+		Assert.assertTrue(fm.generate(fileName));
 		
 		//file created
-		org.junit.Assert.assertTrue(file.exists());
+		Assert.assertTrue(file.exists());
 		
-		//second test
-		iCalendarGUI gui = new iCalendarGUI();
+		//delete newly created file
+		if (file.exists()) {
+			Assert.assertTrue(file.delete());
+		}
 		
-	    org.junit.Assert.assertTrue(gui.generate());  
+		//try to generate gui
+	    Assert.assertTrue(iCalendarGUI.generate());  
 	       
 	}
 }
