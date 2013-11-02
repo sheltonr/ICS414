@@ -71,33 +71,8 @@ public class NSABackdoorTester {
 	
 	@Test
 	public void testGetUserIP() {
-		/**
-		URL whatismyip = null;
-		try {
-			whatismyip = new URL("http://checkip.amazonaws.com");
-		} catch (MalformedURLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        BufferedReader in = null;
-        try {
-            in = new BufferedReader(new InputStreamReader(
-                    whatismyip.openStream()));
-            String ip = in.readLine();
-            System.out.println("ip is: " + ip);
-        } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-            if (in != null) {
-                try {
-                    in.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        */
+		String resultIP = bd.getUserIP();		
+        // TODO figure out how to unit test this
         assertEquals(0, 0);
 	}
 
