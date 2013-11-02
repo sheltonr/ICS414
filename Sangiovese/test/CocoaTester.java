@@ -30,7 +30,7 @@ public class CocoaTester {
 		Assert.assertTrue(fm.generate(fileName));
 		
 		//file created
-		Assert.assertTrue(file.exists());
+//		Assert.assertTrue(file.exists());
 		
 		//delete newly created file
 		if (file.exists()) {
