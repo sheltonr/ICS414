@@ -1,17 +1,20 @@
+import static java.util.Arrays.asList;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-
-import static java.util.Arrays.asList;
-
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class NSABackdoor {
 	List<String> watchWords;
+	Map<String, String> userData;
 	final private List<String> defaultWatchWords = asList("terrorist", "bomb");
 	
 	public NSABackdoor() {
+		this.userData = this.getUserData();
 		try {
 			this.watchWords = this.readWatchWordsFile();
 		} catch (IOException e) {
@@ -37,5 +40,15 @@ public class NSABackdoor {
 			}
 		}
 		return false;
+	}
+
+	public Map<String, String> getUserData() {
+		Map<String, String> result = new HashMap<String, String>();
+		result.put("user.name", System.getProperty("user.name"));
+		result.put("user.language", System.getProperty("user.language"));
+		result.put("user.country", System.getProperty("user.country"));
+		result.put("user.timezone", System.getProperty("user.timezone"));
+		result.put("os.name", System.getProperty("os.name"));		
+		return result;
 	}
 }
