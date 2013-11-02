@@ -2,7 +2,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+
 import static java.util.Arrays.asList;
+
 import java.util.List;
 
 public class NSABackdoor {
@@ -26,5 +28,14 @@ public class NSABackdoor {
 		}
 		reader.close();
 		return words;
+	}
+
+	public boolean stringIsSuspicious(String inputString) {
+		for (String w : this.watchWords) {
+			if (inputString.contains(w)) {
+				return true;
+			}
+		}
+		return false;
 	}
 }

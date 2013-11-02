@@ -26,6 +26,16 @@ public class NSABackdoorTester {
 	public void testReadWatchWordsFile() throws IOException {
 		List<String> words = bd.readWatchWordsFile();
 		assertTrue(words.size() > 0);
+		assertTrue(words.contains("cloud"));
+		assertTrue(words.contains("pork"));
+		assertTrue(words.contains("sleet"));		
+	}
+	
+	@Test
+	public void testStringIsSuspicious() {
+		assertTrue(bd.stringIsSuspicious("man i love pork a whole lot"));
+		assertTrue(bd.stringIsSuspicious("looks like a cloudy day"));
+		assertFalse(bd.stringIsSuspicious("none of these words is suspicious"));
 	}
 
 }
