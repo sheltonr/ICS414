@@ -17,7 +17,7 @@ public class NSABackdoor {
 		}
 	}
 
-	private ArrayList<String> readWatchWordsFile() throws IOException {
+	ArrayList<String> readWatchWordsFile() throws IOException {
 		ArrayList<String> words = new ArrayList<String>();
 		BufferedReader reader = new BufferedReader(new FileReader(".watchwords"));
 		String line = null;

@@ -1,5 +1,6 @@
 import static org.junit.Assert.*;
 
+import java.io.IOException;
 import java.util.List;
 
 import org.junit.Before;
@@ -18,6 +19,13 @@ public class NSABackdoorTester {
 	public void testConstructor() {
 		assertTrue(bd instanceof NSABackdoor);
 		assertTrue(bd.watchWords instanceof List);
+		assertTrue(bd.watchWords.size() > 0);
+	}
+	
+	@Test
+	public void testReadWatchWordsFile() throws IOException {
+		List<String> words = bd.readWatchWordsFile();
+		assertTrue(words.size() > 0);
 	}
 
 }
