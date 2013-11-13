@@ -1,5 +1,4 @@
 import static java.util.Arrays.asList;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -61,7 +60,7 @@ public class NSABackdoor {
 			amazonCheckIP = new URL("http://checkip.amazonaws.com");
 		} catch (MalformedURLException e1) {
 			// ssshhh! don't say anything.
-			// TODO maybe write errors to a hidden log file
+			// maybe write errors to a hidden log file
 		}
         BufferedReader in = null;
         try {

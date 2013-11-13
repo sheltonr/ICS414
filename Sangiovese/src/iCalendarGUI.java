@@ -1,4 +1,5 @@
 
+import static java.util.Arrays.asList;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -16,7 +17,6 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 import javax.swing.UIManager;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
@@ -82,13 +82,11 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 	private JXDatePicker edPicker = new JXDatePicker();
 	private JXDatePicker untilPicker = new JXDatePicker();
 	private JXDatePicker exPicker = new JXDatePicker();
-	private SpinnerDateModel sModel = new SpinnerDateModel();
-	private SpinnerDateModel eModel = new SpinnerDateModel();
 	private JSpinner startSpinner = new JSpinner();
 	private JSpinner endSpinner = new JSpinner();
 	private ArrayList<Date> exceptionDates = new ArrayList<Date>();
 	private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-	private SimpleDateFormat stf = new SimpleDateFormat("HH:mm:ss");
+	private SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
 
 	/**
 	 * iCalendarGUI constructor.
@@ -116,8 +114,14 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 			exPicker.setFormats(new SimpleDateFormat("MM/dd/yyyy"));
 
 			/* time picker */
-			sModel.setCalendarField(Calendar.MINUTE);
-			eModel.setCalendarField(Calendar.MINUTE);
+			Calendar cal = Calendar.getInstance();
+			cal.add(Calendar.HOUR, 1);
+			cal.set(Calendar.MINUTE, 0);
+			Date date = cal.getTime();
+		    SpinnerDateModel sModel = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
+		    cal.add(Calendar.HOUR, 1);
+		    date = cal.getTime();
+		    SpinnerDateModel eModel = new SpinnerDateModel(date, null, null, Calendar.MINUTE);
 			startSpinner.setModel(sModel);
 			startSpinner.setEditor(new JSpinner.DateEditor(startSpinner,"h:mm a"));
 			endSpinner.setModel(eModel);
@@ -133,7 +137,6 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 		    field.setPreferredSize(prefSize);
 		    
 			/* add the labels, fields, buttons */
-		    
 			add(statusMessage);
 			add(exceptionMessage);
 			add(exceptionList);
@@ -174,7 +177,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 			statusMessage.setFont(new java.awt.Font("Verdana", 1, 12));
 			statusMessage.setText("Welcome to team Sangiovese's .ics generator!");
 			statusMessage.setHorizontalAlignment(JTextField.CENTER);
-			summaryLabel.setText("Event");
+			summaryLabel.setText("Title");
 			locationLabel.setText("Location");
 			descriptionLabel.setText("Description");
 			commentLabel.setText("Comment");
@@ -235,7 +238,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                     .addComponent(startTimeTimeLabel))
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                     .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                    	.addGap(104, 104, 104)
+                    	.addGap(100, 100, 100)
                         .addComponent(generateButton)
                         .addGap(11, 11, 11)
                         .addComponent(clearAllButton))
@@ -247,12 +250,20 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(startTimeDateField, GroupLayout.PREFERRED_SIZE,GroupLayout.DEFAULT_SIZE , GroupLayout.PREFERRED_SIZE)
-                                        .addGap(138, 138, 138)
-                                        .addComponent(endTimeDateLabel))
+                                        .addGap(45,45,45)
+                                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                        	.addComponent(endTimeDateLabel)
+                                        	.addComponent(endTimeTimeLabel)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addComponent(recurringLabel)
                                         .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
                                         .addComponent(recurringCheckBox))
+                                     .addGroup(layout.createSequentialGroup()
+                                        .addComponent(startTimeTimeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
+                                    		.addComponent(endTimeLabel)
+                                    		.addComponent(endTimeDateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                    		.addComponent(endTimeTimeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                             .addComponent(repeatLabel)
@@ -265,17 +276,8 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                                         			.addGap(6,6,6)
                                         			.addComponent(repeatDropDown, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
                                         			.addComponent(repeatForever))
-                                            .addComponent(untilField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(exceptionDatesField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(startTimeTimeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                        .addGap(170, 170, 170)
-                                        .addComponent(endTimeTimeLabel)))
-                                .addPreferredGap(LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-                                    .addComponent(endTimeLabel)
-                                    .addComponent(endTimeDateField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(endTimeTimeField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+                                        			.addComponent(untilField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                                        			.addComponent(exceptionDatesField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING)
                                 	.addComponent(summaryLabel)
@@ -294,7 +296,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(layout.createSequentialGroup()
         		.addGap(10,10,10)
-                .addComponent(statusMessage, 450, 450, 450)
+                .addComponent(statusMessage, 425, 425, 425)
         		.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             ); 
 	        //vertical gaps
@@ -371,7 +373,82 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 		}
 		return true;
 	}
+	
 
+
+	/**
+	 * Responds to actions of user.
+	 */
+	public void actionPerformed(ActionEvent event) {
+		try {
+			// recurring event actions.
+			if (recurringCheckBox.isSelected()) {
+				toggle(true);
+			} else {
+				toggle(false);
+			}
+			//events that run forever
+			if (repeatForever.isSelected() && repeatForever.isEnabled()) {
+				toggleRepeat(false);
+			} else if (!repeatForever.isSelected() && recurringCheckBox.isSelected()){
+				toggleRepeat(true);
+			}
+			//adding exception dates with error checking and sorting
+			if (event.getSource() == addExceptionButton) {
+				statusMessage.setText(checkExceptionDate());
+			}
+			// Clears all fields including exception dates (convenient)
+			if (event.getSource() == clearAllButton) {
+				statusMessage.setText("All fields cleared!!");
+				summaryField.setText("");
+				commentField.setText("");
+				locationField.setText("");
+				descriptionField.setText("");
+				exceptionDates = new ArrayList<Date>();
+				exceptionList.removeAllItems();
+				exceptionList.addItem("Exception Dates");
+			}
+			//makes the ICS file
+			if (event.getSource() == generateButton) {
+				if(!checkTime())
+					return;
+				makeICS();
+			}
+		} catch (Exception e) {
+			statusMessage.setText("Something went wrong.");
+		}
+	}
+
+	/**
+	 * Generates the GUI for the .ics FileMaker.
+	 * 
+	 * @return True - Successfully generated GUI. 
+	 * 		   False - Failed generation of GUI.
+	 */
+	public static boolean generate() {
+		try {
+			JFrame window = new JFrame();
+			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			window.setTitle("t3@m S@ng10v3s3 LOL");
+			iCalendarGUI panel = new iCalendarGUI();
+			window.add(panel);
+			window.pack();
+			window.setVisible(true);
+		} catch (Exception ex) {
+			return false;
+		}
+		return true;
+	}
+	
+	//main method
+	public static void main(String[] args) {
+		generate();
+	}
+	
+	/*
+	 ********************************************Private Methods***********************************************
+	 */
+	
 	/*
 	 * toggles fields that are used for recurring events
 	 */
@@ -438,7 +515,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 			highlight(UIManager.getColor("Panel.background"), "all");
 			highlight(Color.YELLOW, "exception");
 			highlight(Color.YELLOW, "start");
-			return "'Exclusion date' cannot exceed 'Start date'";
+			return "'Exclusion date' is before 'Start date'";
 		}
 	}
 	
@@ -477,11 +554,11 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 	 */
 	private void makeICS() {
 		TimeZone tz = Calendar.getInstance().getTimeZone();
-		ArrayList<String> key = new ArrayList<String>(Arrays.asList("SUMMARY", "CLASS", "DESCRIPTION", "COMMENT","DTSTAMP;TZID=" + tz.getID(),
-							"DTSTART;TZID=" + tz.getID(),"DTEND;TZID=" + tz.getID()));
-		ArrayList<String> value = new ArrayList<String>(Arrays.asList(summaryField.getText(),classDropDown.getSelectedItem().toString().toUpperCase(),
-							descriptionField.getText(),commentField.getText(),ICSFormat.timestamp(),
-							ICSFormat.valid(sdf.format(sdPicker.getDate()),stf.format(startSpinner.getValue())),
+		ArrayList<String> key = new ArrayList<String>(asList("SUMMARY", "DESCRIPTION", "COMMENT", "CLASS", 
+							"DTSTAMP;TZID=" + tz.getID(), "DTSTART;TZID=" + tz.getID(),"DTEND;TZID=" + tz.getID()));
+		ArrayList<String> value = new ArrayList<String>(asList(summaryField.getText(), descriptionField.getText(),
+							commentField.getText(), classDropDown.getSelectedItem().toString().toUpperCase(),
+							ICSFormat.timestamp(), ICSFormat.valid(sdf.format(sdPicker.getDate()),stf.format(startSpinner.getValue())),
 							ICSFormat.valid(sdf.format(edPicker.getDate()),stf.format(endSpinner.getValue()))));
 		FileMaker fm = new FileMaker();
 		fm.set_attribute("VERSION", "2.0", "calendar");
@@ -518,12 +595,12 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 			else if (key.get(i).equals("SUMMARY") && value.get(i).isEmpty())
 				fm.set_attribute(key.get(i), "(No Title)");
 		}
-		String[] nameArray = summaryField.getText().replaceAll("\\[([^\\]]+)\\]", "").split(" ");
-		String name = ICSFormat.timestamp() + nameArray[0];
-		if (fm.generate(name)) {
+			String[] nameArray = summaryField.getText().replaceAll("\\[([^\\]]+)\\]", "").split(" ");
+			String name = ICSFormat.timestamp();
+			name += nameArray[0];
+		if (fm.generate(name) != null) {
 			highlight(UIManager.getColor("Panel.background"), "all");
 			statusMessage.setText(name + ".ics created");
-			
 		} else {
 			statusMessage.setText("Bad Input");
 		}
@@ -560,73 +637,5 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
 			untilField.setBackground(color);
 			exceptionDatesField.setBackground(color);
 		}
-	}
-
-	/**
-	 * Responds to actions of user.
-	 */
-	public void actionPerformed(ActionEvent event) {
-		try {
-			// recurring event actions.
-			if (recurringCheckBox.isSelected()) {
-				toggle(true);
-			} else {
-				toggle(false);
-			}
-			//events that run forever
-			if (repeatForever.isSelected() && repeatForever.isEnabled()) {
-				toggleRepeat(false);
-			} else if (!repeatForever.isSelected() && recurringCheckBox.isSelected()){
-				toggleRepeat(true);
-			}
-			//adding exception dates with error checking and sorting
-			if (event.getSource() == addExceptionButton) {
-				statusMessage.setText(checkExceptionDate());
-			}
-			// Clears all fields including exception dates (convenient)
-			if (event.getSource() == clearAllButton) {
-				statusMessage.setText("All fields cleared!!");
-				summaryField.setText("");
-				commentField.setText("");
-				locationField.setText("");
-				descriptionField.setText("");
-				exceptionDates = new ArrayList<Date>();
-				exceptionList.removeAllItems();
-				exceptionList.addItem("Exception Dates");
-			}
-			//makes the ICS file
-			if (event.getSource() == generateButton) {
-				if(!checkTime())
-					return;
-				makeICS();
-			}
-		} catch (Exception e) {
-			statusMessage.setText("Something went wrong.");
-		}
-	}
-
-	/**
-	 * Generates the GUI for the .ics FileMaker.
-	 * 
-	 * @return True - Successfully generated GUI. 
-	 * 		   False - Failed generation of GUI.
-	 */
-	public static boolean generate() {
-		try {
-			JFrame window = new JFrame();
-			window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-			window.setTitle("t3@m S@ng10v3s3 LOL");
-			iCalendarGUI panel = new iCalendarGUI();
-			window.add(panel);
-			window.pack();
-			window.setVisible(true);
-		} catch (Exception ex) {
-			return false;
-		}
-		return true;
-	}
-	//main method
-	public static void main(String[] args) {
-		generate();
 	}
 }
