@@ -102,7 +102,7 @@ public class FileMaker {
 	@SuppressWarnings("rawtypes")
 	public String generate_content() {
 		String content = "";
-		String tags_calendar_header = "BEGIN:VCALENDAR\r\n";
+		String tags_calendar_header = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nCALSCALE:GREGORIAN\r\n";
 		String tags_event_header = "BEGIN:VEVENT\r\n";
 		String tags_footer = "END:VEVENT\r\nEND:VCALENDAR";
 		

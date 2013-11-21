@@ -38,8 +38,9 @@ public class FileMakerTester {
 		file = (fm.generate(fileName));
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		assertTrue(br.readLine().equals("BEGIN:VCALENDAR"));
+		assertTrue(br.readLine().equals("VERSION:2.0"));
+		assertTrue(br.readLine().equals("CALSCALE:GREGORIAN"));
 		assertTrue(br.readLine().equals("BEGIN:VEVENT"));
-		
 		for (String str : testStrings) {
 			assertTrue((str + ":test").equals(br.readLine()));
 		}

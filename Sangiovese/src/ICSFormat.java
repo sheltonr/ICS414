@@ -20,7 +20,7 @@ public class ICSFormat{
 	/**
 	 * Private Contructor for .ics FileMaker class.
 	 */
-	private ICSFormat(){
+	ICSFormat(){
 	}
 
 	/**
