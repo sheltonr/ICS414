@@ -580,8 +580,6 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                                                         ICSFormat.timestamp(), ICSFormat.valid(sdf.format(sdPicker.getDate()),stf.format(startSpinner.getValue())),
                                                         ICSFormat.valid(sdf.format(edPicker.getDate()),stf.format(endSpinner.getValue()))));
                 FileMaker fm = new FileMaker();
-                fm.set_attribute("VERSION", "2.0", "calendar");
-                fm.set_attribute("CALSCALE", "GREGORIAN", "calendar");
                 if (recurringCheckBox.isSelected()) {
                         String rruleAttributes = "FREQ=" + repeatDropDown.getSelectedItem().toString().toUpperCase();
                         String rruleExceptions = "";

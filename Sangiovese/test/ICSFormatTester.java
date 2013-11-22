@@ -7,17 +7,6 @@ import org.junit.Test;
 
 
 public class ICSFormatTester {
-	ICSFormat ics;
-	
-	@Before
-	public void setUp() {
-		ics = new ICSFormat();
-	}
-	
-	@Test
-	public void testConstructor() {
-		assertTrue(ics instanceof ICSFormat);
-	}
 	
 	@Test
 	public void testCompare() {

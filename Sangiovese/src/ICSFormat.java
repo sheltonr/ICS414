@@ -20,7 +20,7 @@ public class ICSFormat{
 	/**
 	 * Private Contructor for .ics FileMaker class.
 	 */
-	ICSFormat(){
+	private ICSFormat(){
 	}
 
 	/**
@@ -88,15 +88,5 @@ public class ICSFormat{
 		}catch (Exception ex){
 		}
 		return -1;
-	}
-	/**
-	 * Adds one subproperty of RRule to the body of rules
-	 * @param property - String of property name
-	 * @param value - String of value corresponding to property
-	 * @param source - Current string for RRule
-	 * @return value - source + attributes and syntax
-	 */
-	public static String addRRule(String property, String value, String source){
-			return source + property + "=" + value + ";";
 	}
 }
