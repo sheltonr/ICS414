@@ -87,8 +87,8 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
         /**
          * iCalendarGUI constructor.
          */
-        private iCalendarGUI() {
-                initialize();
+        public iCalendarGUI() {
+        	initialize();
         }
 
         /**
@@ -424,9 +424,9 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * @return True - Successfully generated GUI. 
          *                    False - Failed generation of GUI.
          */
-        public static boolean generate() {
+        public void generate() {
                 try {
-                        JFrame window = new JFrame();
+                		JFrame window = new JFrame();
                         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                         window.setTitle("t3@m S@ng10v3s3 LOL");
                         iCalendarGUI panel = new iCalendarGUI();
@@ -434,14 +434,14 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                         window.pack();
                         window.setVisible(true);
                 } catch (Exception ex) {
-                        return false;
+                       //failed
                 }
-                return true;
         }
         
         //main method
         public static void main(String[] args) {
-                generate();
+            iCalendarGUI gui = new iCalendarGUI();    
+        	gui.generate();
         }
         
         /*
@@ -606,7 +606,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                         String[] nameArray = summaryField.getText().replaceAll("\\[([^\\]]+)\\]", "").split(" ");
                         String name = ICSFormat.timestamp();
                         name += nameArray[0];
-                if (fm.generate(name) != null) {
+                if (fm.generate(name)) {
                         highlight(UIManager.getColor("Panel.background"), "all");
                         statusMessage.setText(name + ".ics created");
                 } else {
@@ -656,7 +656,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - Current text of title field.
          */
-        public static String getTitle() {
+        public String getTitle() {
         	return summaryField.getText();
         }
         
@@ -665,7 +665,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param str - Value to be set.
          */
-        public static void setTitle(String str) {
+        public void setTitle(String str) {
         	summaryField.setText(str);
         }
         
@@ -674,7 +674,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - Current text of location field.
          */
-        public static String getLoc() {
+        public String getLoc() {
         	return locationField.getText();
         }
         
@@ -683,7 +683,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param str - Value to be set.
          */
-        public static void setLoc(String str) {
+        public void setLoc(String str) {
         	locationField.setText(str);
         }
         
@@ -692,7 +692,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - Current text of description field.
          */
-        public static String getDescription() {
+        public String getDescription() {
         	return descriptionField.getText();
         }
         
@@ -701,7 +701,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param str - Value to be set.
          */
-        public static void setDescription(String str) {
+        public void setDescription(String str) {
         	descriptionField.setText(str);
         }
         
@@ -710,7 +710,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - Current text of comment field.
          */
-        public static String getComment() {
+        public String getComment() {
         	return commentField.getText();
         }
         
@@ -719,7 +719,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param str - Value to be set.
          */
-        public static void setComment(String str) {
+        public void setComment(String str) {
         	commentField.setText(str);
         }
         
@@ -728,7 +728,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - current selected item of the classification drop-down.
          */
-        public static String getClassification() {
+        public String getClassification() {
         	return classDropDown.getSelectedItem().toString();
         }
         
@@ -737,7 +737,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param index - Index to be selected (cannot exceed length).
          */
-        public static void setClassification(int index) {
+        public void setClassification(int index) {
         	classDropDown.setSelectedIndex(index);
         }
         
@@ -746,7 +746,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - date formatted in "MM/dd/yyy" form.
          */
-        public static String getStartDate() {
+        public String getStartDate() {
         	return sdf.format(sdPicker.getDate());
         }
         
@@ -756,7 +756,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - date formatted in "MM/dd/yyy" form.
          */
-        public static String getEndDate() {
+        public String getEndDate() {
         	return sdf.format(edPicker.getDate());
         }
         
@@ -766,7 +766,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - time formatted in "HH:mm" form.
          */
-        public static String getStartTime() {
+        public String getStartTime() {
         	return stf.format(startSpinner.getValue());
         }
         
@@ -775,7 +775,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - time formatted in "HH:mm" form.
          */
-        public static String getEndTime() {
+        public String getEndTime() {
         	return stf.format(endSpinner.getValue());
         }
         
@@ -785,7 +785,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * @return True - if recurring checkbox is enabled.
          * 		   False - if recurring checkbox is disabled.
          */
-        public static boolean recurring() {
+        public boolean recurring() {
         	return recurringCheckBox.isEnabled();
         }    
         
@@ -794,8 +794,28 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param flag - True, or False.
          */
-        public static void setRecurring(boolean flag) {
+        public void setRecurring(boolean flag) {
         	recurringCheckBox.setEnabled(flag);
+        }
+        
+        
+        /**
+         * Returns boolean value of the forever checkbox state.
+         * 
+         * @return True - if forever checkbox is enabled.
+         * 		   False - if forever checkbox is disabled.
+         */
+        public boolean forever() {
+        	return repeatForever.isEnabled();
+        }    
+        
+        /**
+         * Sets recurring checkbox to true or false.
+         * 
+         * @param flag - True, or False.
+         */
+        public void setForever(boolean flag) {
+        	repeatForever.setEnabled(flag);
         }
         
         /**
@@ -803,7 +823,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - current selected item of the repeat drop-down.
          */
-        public static String getRepeat() {
+        public String getRepeat() {
         	return repeatDropDown.getSelectedItem().toString();
         }
         
@@ -812,8 +832,18 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @param index - Index to be selected (cannot exceed length).
          */
-        public static void setRepeat(int index) {
+        public void setRepeat(int index) {
         	repeatDropDown.setSelectedIndex(index);
+        }
+        
+        /**
+         * Returns boolean value of the repeat drop down state.
+         * 
+         * @return True - if repeat drop down is enabled.
+         * 		   False - if forever repeat drop down is disabled.
+         */
+        public boolean repeatState() {
+        	return repeatDropDown.isEnabled();
         }
         
         /**
@@ -821,7 +851,7 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - date formatted in "MM/dd/yyy" form.
          */
-        public static String getUntilDate() {
+        public String getUntilDate() {
         	return sdf.format(untilPicker.getDate());
         }
         
@@ -830,7 +860,21 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
          * 
          * @return String - date formatted in "MM/dd/yyy" form.
          */
-        public static String getExceptionDate() {
+        public String getExceptionDate() {
         	return sdf.format(exPicker.getDate());
+        }
+        
+        /**
+         * Clicks the Generate button.
+         */
+        public void clickGenerate() {
+        	generateButton.doClick();
+        }
+        
+        /**
+         * Clicks the Clear all button
+         */
+        public void clickClear() {
+        	clearAllButton.doClick();
         }
 }

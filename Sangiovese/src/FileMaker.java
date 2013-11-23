@@ -136,16 +136,16 @@ public class FileMaker {
 	 * @return true on success.
 	 *		   false on failure.
 	 */
-	public File generate(String fileName) {
+	public boolean generate(String fileName) {
 		try {
 			File file = new File(fileName + ".ics");
 			Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file)));
 			writer.write(generate_content());
 			writer.close();
-			return file;
+			return true;
 		} catch (IOException ex) {
 			System.out.print(ex + "fail");
-			return null;
+			return false;
 		}
 		
 	}

@@ -7,10 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class FileMakerTester {
-	private File file;
-	String fileName;
-	FileMaker fm;
-	String[] testStrings = {"LOCATION", "DESCRIPTION", "CLASS", "SUMMARY"};
+	private static String fileName;
+	private static FileMaker fm;
+	private static String[] testStrings = {"LOCATION", "DESCRIPTION", "CLASS", "SUMMARY"};
 	
 	@Before
 	public void setUp() throws Exception{
@@ -29,7 +28,9 @@ public class FileMakerTester {
 			fm.set_attribute(str, "test");
 		}
 		
-		file = (fm.generate(fileName));
+		assertTrue(fm.generate(fileName));
+		File file = new File(System.getProperty("user.dir") + "/" + fileName + ".ics");
+		assertTrue(file.exists());
 		BufferedReader br = new BufferedReader(new FileReader(file));
 		assertTrue(br.readLine().equals("BEGIN:VCALENDAR"));
 		assertTrue(br.readLine().equals("VERSION:2.0"));
@@ -39,6 +40,7 @@ public class FileMakerTester {
 			assertTrue((str + ":test").equals(br.readLine()));
 		}
 		br.close();
+		assertTrue(file.delete());
 	}
 }
 
