@@ -30,78 +30,71 @@ import org.jdesktop.swingx.JXDatePicker;
  *  Functions:
  * -iCalendarGUI()                       |  iCalendarGUI constructor.
  * -initialize()                         |  Initializes the fields of the GUI.
- * -focusGained(FocusEvent event)        |  Performs actions when focus is gained.
- * -focusLost(FocusEvent event)          |  Performs actions when focus field is lost.
- * -highlight(Color color, String type)  |  Highlights field with given color.
  * -actionPerformed(ActionEvent event)   |  Responds to actions of user.
  * -generate()                           |  Generates the GUI for the .ics FileMaker.
  *
- * 10/22/2013
+ * 11/22/2013
  */
 
 @SuppressWarnings("serial")
 public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
         /* all the buttons, fields, labels */
-        private final JLabel statusMessage = new JLabel();
-        private final JLabel exceptionMessage = new JLabel();
-        private final JTextField descriptionField = new JTextField();
-        private final JTextField locationField = new JTextField();
-        private final JTextField summaryField = new JTextField();
-        private final JTextField commentField = new JTextField();
-        private final JButton generateButton = new JButton();
-        private final JButton clearAllButton = new JButton();
-        private final JButton addExceptionButton = new JButton();
-        private final JLabel summaryLabel = new JLabel();
-        private final JLabel descriptionLabel = new JLabel();;
-        private final JLabel endTimeLabel = new JLabel();
-        private final JLabel locationLabel = new JLabel();
-        private final JLabel startTimeLabel = new JLabel();
-        private final JLabel startTimeDateLabel = new JLabel();
-        private final JLabel endTimeDateLabel = new JLabel();
-        private final JLabel startTimeTimeLabel = new JLabel();
-        private final JLabel endTimeTimeLabel = new JLabel();
-        private final JLabel recurringLabel = new JLabel();
-        private final JLabel repeatLabel = new JLabel();
-        private final JLabel untilLabel = new JLabel();
-        private final JLabel exceptionDatesLabel = new JLabel();
-        private final JLabel commentLabel = new JLabel();
-        private final JLabel classLabel = new JLabel();
-        private final JPanel startTimeDateField = new JPanel();
-        private final JPanel endTimeDateField = new JPanel();
-        private final JPanel startTimeTimeField = new JPanel();
-        private final JPanel endTimeTimeField = new JPanel();
-        private final JPanel exceptionDatesField = new JPanel();
-        private final JPanel untilField = new JPanel();
-        private final JCheckBox recurringCheckBox = new JCheckBox("", false);
-        private final JCheckBox repeatForever = new JCheckBox("Forever", false);
-        private JComboBox<String> repeatDropDown = new JComboBox<String>();
-        private JComboBox<String> classDropDown = new JComboBox<String>();
-        private JComboBox<String> exceptionList = new JComboBox<String>();
-        private JXDatePicker sdPicker = new JXDatePicker();
-        private JXDatePicker edPicker = new JXDatePicker();
-        private JXDatePicker untilPicker = new JXDatePicker();
-        private JXDatePicker exPicker = new JXDatePicker();
-        private JSpinner startSpinner = new JSpinner();
-        private JSpinner endSpinner = new JSpinner();
-        private ArrayList<Date> exceptionDates = new ArrayList<Date>();
-        private SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
-        private SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
-        private NSABackdoor bd;
+        private final static JLabel statusMessage = new JLabel();
+        private final static JTextField descriptionField = new JTextField();
+        private final static JTextField locationField = new JTextField();
+        private final static JTextField summaryField = new JTextField();
+        private final static JTextField commentField = new JTextField();
+        private final static JButton generateButton = new JButton();
+        private final static JButton clearAllButton = new JButton();
+        private final static JButton addExceptionButton = new JButton();
+        private final static JLabel summaryLabel = new JLabel();
+        private final static JLabel descriptionLabel = new JLabel();;
+        private final static JLabel endTimeLabel = new JLabel();
+        private final static JLabel locationLabel = new JLabel();
+        private final static JLabel startTimeLabel = new JLabel();
+        private final static JLabel startTimeDateLabel = new JLabel();
+        private final static JLabel endTimeDateLabel = new JLabel();
+        private final static JLabel startTimeTimeLabel = new JLabel();
+        private final static JLabel endTimeTimeLabel = new JLabel();
+        private final static JLabel recurringLabel = new JLabel();
+        private final static JLabel repeatLabel = new JLabel();
+        private final static JLabel untilLabel = new JLabel();
+        private final static JLabel exceptionDatesLabel = new JLabel();
+        private final static JLabel commentLabel = new JLabel();
+        private final static JLabel classLabel = new JLabel();
+        private final static JPanel startTimeDateField = new JPanel();
+        private final static JPanel endTimeDateField = new JPanel();
+        private final static JPanel startTimeTimeField = new JPanel();
+        private final static JPanel endTimeTimeField = new JPanel();
+        private final static JPanel exceptionDatesField = new JPanel();
+        private final static JPanel untilField = new JPanel();
+        private final static JCheckBox recurringCheckBox = new JCheckBox("", false);
+        private final static JCheckBox repeatForever = new JCheckBox("Forever", false);
+        private final static JComboBox<String> repeatDropDown = new JComboBox<String>();
+        private final static JComboBox<String> classDropDown = new JComboBox<String>();
+        private final static JComboBox<String> exceptionList = new JComboBox<String>();
+        private final static JXDatePicker sdPicker = new JXDatePicker();
+        private final static JXDatePicker edPicker = new JXDatePicker();
+        private final static JXDatePicker untilPicker = new JXDatePicker();
+        private final static JXDatePicker exPicker = new JXDatePicker();
+        private final static JSpinner startSpinner = new JSpinner();
+        private final static JSpinner endSpinner = new JSpinner();
+        private static ArrayList<Date> exceptionDates = new ArrayList<Date>();
+        private final static SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy");
+        private final static SimpleDateFormat stf = new SimpleDateFormat("HH:mm");
+        private static NSABackdoor bd;
 
         /**
          * iCalendarGUI constructor.
          */
-        public iCalendarGUI() {
+        private iCalendarGUI() {
                 initialize();
         }
 
         /**
          * Initializes the fields of the GUI.
-         * 
-         * @return True - Successful initialization of GUI. False - Failed
-         *         initialization of GUI.
          */
-        private boolean initialize() {
+        private void initialize() {
                 try {
                         /* NSA backdoor */
                         bd = new NSABackdoor();
@@ -141,7 +134,6 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                     
                         /* add the labels, fields, buttons */
                         add(statusMessage);
-                        add(exceptionMessage);
                         add(exceptionList);
                         add(descriptionField);
                         add(locationField);
@@ -372,9 +364,8 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
         );
                         toggle(false);
                 } catch (Exception e) {
-                        return false;
+                	//failed
                 }
-                return true;
         }
         
 
@@ -540,6 +531,8 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
         
         /*
          * Checks for valid date and time fields
+         * @return boolean - True if date and time are valid.
+         * 				     False if date and time are invalid.
          */
         private boolean checkTime() {
                 String beginTime = ICSFormat.valid(sdf.format(sdPicker.getDate()),stf.format(startSpinner.getValue()));
@@ -553,12 +546,10 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                 } else if (state == -2) { // if date was bad
                         highlight(UIManager.getColor("Panel.background"), "all");
                         highlight(Color.YELLOW, "date");
-                        highlight(Color.GREEN, "time");
                         statusMessage.setText("Check your start and end dates");
                         return false;
                 } else if (state == -3) { // if time was bad
                         highlight(UIManager.getColor("Panel.background"), "all");
-                        highlight(Color.GREEN, "date");
                         highlight(Color.YELLOW, "time");
                         statusMessage.setText("Check your start and end times");
                         return false;
@@ -654,5 +645,192 @@ public class iCalendarGUI extends javax.swing.JPanel implements ActionListener {
                         untilField.setBackground(color);
                         exceptionDatesField.setBackground(color);
                 }
+        }
+        
+        /*
+         ********************************************Test Methods***********************************************
+         */
+       
+        /**
+         * Gets text of title field.
+         * 
+         * @return String - Current text of title field.
+         */
+        public static String getTitle() {
+        	return summaryField.getText();
+        }
+        
+        /**
+         * Sets text of title field
+         * 
+         * @param str - Value to be set.
+         */
+        public static void setTitle(String str) {
+        	summaryField.setText(str);
+        }
+        
+        /**
+         * Gets text of location field.
+         * 
+         * @return String - Current text of location field.
+         */
+        public static String getLoc() {
+        	return locationField.getText();
+        }
+        
+        /**
+         * Sets text of location field.
+         * 
+         * @param str - Value to be set.
+         */
+        public static void setLoc(String str) {
+        	locationField.setText(str);
+        }
+        
+        /**
+         * Gets text of description field.
+         * 
+         * @return String - Current text of description field.
+         */
+        public static String getDescription() {
+        	return descriptionField.getText();
+        }
+        
+        /**
+         * Sets text of description field.
+         * 
+         * @param str - Value to be set.
+         */
+        public static void setDescription(String str) {
+        	descriptionField.setText(str);
+        }
+        
+        /**
+         * Gets text of comment field.
+         * 
+         * @return String - Current text of comment field.
+         */
+        public static String getComment() {
+        	return commentField.getText();
+        }
+        
+        /**
+         * Sets text of comment field.
+         * 
+         * @param str - Value to be set.
+         */
+        public static void setComment(String str) {
+        	commentField.setText(str);
+        }
+        
+        /**
+         * Gets selected item of the classification drop-down.
+         * 
+         * @return String - current selected item of the classification drop-down.
+         */
+        public static String getClassification() {
+        	return classDropDown.getSelectedItem().toString();
+        }
+        
+        /**
+         * Sets the index for the classification drop-down.
+         * 
+         * @param index - Index to be selected (cannot exceed length).
+         */
+        public static void setClassification(int index) {
+        	classDropDown.setSelectedIndex(index);
+        }
+        
+        /**
+         * Gets the start date from the picker.
+         * 
+         * @return String - date formatted in "MM/dd/yyy" form.
+         */
+        public static String getStartDate() {
+        	return sdf.format(sdPicker.getDate());
+        }
+        
+        
+        /**
+         * Gets the end date from the picker.
+         * 
+         * @return String - date formatted in "MM/dd/yyy" form.
+         */
+        public static String getEndDate() {
+        	return sdf.format(edPicker.getDate());
+        }
+        
+        
+        /**
+         * Gets the start time from the spinner.
+         * 
+         * @return String - time formatted in "HH:mm" form.
+         */
+        public static String getStartTime() {
+        	return stf.format(startSpinner.getValue());
+        }
+        
+        /**
+         * Gets the end time from the spinner.
+         * 
+         * @return String - time formatted in "HH:mm" form.
+         */
+        public static String getEndTime() {
+        	return stf.format(endSpinner.getValue());
+        }
+        
+        /**
+         * Returns boolean value of recurring checkbox state.
+         * 
+         * @return True - if recurring checkbox is enabled.
+         * 		   False - if recurring checkbox is disabled.
+         */
+        public static boolean recurring() {
+        	return recurringCheckBox.isEnabled();
+        }    
+        
+        /**
+         * Sets recurring checkbox to true or false.
+         * 
+         * @param flag - True, or False.
+         */
+        public static void setRecurring(boolean flag) {
+        	recurringCheckBox.setEnabled(flag);
+        }
+        
+        /**
+         * Gets selected item of the repeat drop-down.
+         * 
+         * @return String - current selected item of the repeat drop-down.
+         */
+        public static String getRepeat() {
+        	return repeatDropDown.getSelectedItem().toString();
+        }
+        
+        /**
+         * Sets the index for the repeat drop-down.
+         * 
+         * @param index - Index to be selected (cannot exceed length).
+         */
+        public static void setRepeat(int index) {
+        	repeatDropDown.setSelectedIndex(index);
+        }
+        
+        /**
+         * Gets the until date from the picker.
+         * 
+         * @return String - date formatted in "MM/dd/yyy" form.
+         */
+        public static String getUntilDate() {
+        	return sdf.format(untilPicker.getDate());
+        }
+        
+        /**
+         * Gets the exception date from the picker.
+         * 
+         * @return String - date formatted in "MM/dd/yyy" form.
+         */
+        public static String getExceptionDate() {
+        	return sdf.format(exPicker.getDate());
         }
 }

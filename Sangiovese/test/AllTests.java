@@ -4,7 +4,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 
 @RunWith(Suite.class)
-@SuiteClasses({ FileMakerTester.class, NSABackdoorTester.class, ICSFormatTester.class })
+@SuiteClasses({ FileMakerTester.class, NSABackdoorTester.class, ICSFormatTester.class, GUITester.class })
 public class AllTests {
 
 }

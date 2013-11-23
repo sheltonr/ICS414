@@ -6,12 +6,6 @@ import java.io.IOException;
 import org.junit.Before;
 import org.junit.Test;
 
-/**
- * Tester for Team Sangivese's FileMaker class.
- * 
- * 11/12/2013
- */
-
 public class FileMakerTester {
 	private File file;
 	String fileName;

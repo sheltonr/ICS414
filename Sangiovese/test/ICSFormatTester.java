@@ -1,8 +1,7 @@
 import static org.junit.Assert.assertTrue;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-import org.junit.Before;
 import org.junit.Test;
 
 
